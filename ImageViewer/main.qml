@@ -46,7 +46,7 @@ ApplicationWindow {
     title: "Select an image file"
     folder: shortcuts.documents
     nameFilters: [
-    "Image files (*.*)",
+    "Image files (*.jpg *.png *.tif)", "All files (*)"
     ]
     onAccepted: {
     image.source = fileOpenDialog.fileUrl
