@@ -10,46 +10,44 @@ ApplicationWindow {
     Universal.accent: Universal.Violet
     width: 640
     height: 480
-    title: qsTr("C-Bits") 
+    title: qsTr("C-Bits")
 
     FileDialog
     {
-            id: fileOpenDialog
-            title: "Select an image file"
-            folder: shortcuts.documents
-            selectMultiple: true
-            nameFilters: [
-                "Image files (*.png *.jpeg *.jpg *.tif *.tiff)",
-            ]
-            onAccepted: {
-//                for(var i=0; i <= fileOpenDialog.fileUrls.lenght; i++)
-//                {
-//                    filenames.push(fileOpenDialog.fileUrls[i])
-//                }
-                Wrapper.setSlides(fileOpenDialog.fileUrls)
-            }
-     }
+        id: fileOpenDialog
+        title: "Select an image file"
+        folder: shortcuts.documents
+        selectMultiple: true
+        nameFilters: ["Image files (*.png *.jpeg *.jpg *.tif *.tiff)"]
+        onAccepted: {
+            Wrapper.setSlides(fileOpenDialog.fileUrls)
+        }
+    }
 
-    ColumnLayout{
+    Column{
         id: slidetryId
-        height: 550
+        anchors.fill: parent
         RowLayout
         {
-            spacing: 20
+            width: parent.width
+            height: 90
+
+            spacing: 30
             Button{
+                Layout.fillWidth: false
                 text: qsTr("Open Image")
                 onClicked: {
                     fileOpenDialog.open()
-
-
                 }
             }
 
             Button{
                 text: qsTr("Save Image")
+                Layout.fillWidth: false
             }
 
             Button{
+                Layout.fillWidth: false
                 text: qsTr("Close All")
                 onClicked: {Wrapper.clearSlides()
                 }
@@ -58,17 +56,15 @@ ApplicationWindow {
 
         Rectangle
         {
-            width : 400
+            width : parent.width
             height: parent.height
             color: "greenyellow"
             ListView
             {
                 id:mainList
-                width: parent.width - 10
-                height: parent.height
                 anchors.fill: parent
                 clip: true
-
+                spacing: 5
                 model: Wrapper.slideList
 
                 delegate: Rectangle{
