@@ -1,4 +1,4 @@
-QT += quick
+QT += quick core widgets gui
 QT += quickcontrols2
 QT += qml
 CONFIG += c++11
@@ -15,7 +15,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp
+        imageprovider.cpp \
+        main.cpp \
+        mainview.cpp \
+        slide.cpp \
+        viewspace.cpp
 
 RESOURCES += qml.qrc
 
@@ -29,3 +33,11 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    imageprovider.h \
+    mainview.h \
+    slide.h \
+    viewspace.h
+
+FORMS +=

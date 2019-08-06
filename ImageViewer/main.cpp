@@ -1,17 +1,17 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QtQuickControls2/QQuickStyle>
+#include <mainview.h>
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
 
-    QQuickStyle::setStyle("Fusion");
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    if (engine.rootObjects().isEmpty())
+    MainView wrapper;
+
+    if(!wrapper.initialize())
         return -1;
 
     return app.exec();
