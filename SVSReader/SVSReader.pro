@@ -33,6 +33,10 @@ unix {
 }
 
 win32: LIBS += -L$$PWD/../TIFF/Libs/ -ltiff
+else:unix: LIBS += -L$$PWD/../../../usr/lib/x86_64-linux-gnu/ -ltiff
 
-INCLUDEPATH += $$PWD/../TIFF/Include
-DEPENDPATH += $$PWD/../TIFF/Include
+win32:INCLUDEPATH += $$PWD/../TIFF/Include
+win32:DEPENDPATH += $$PWD/../TIFF/Include
+
+unix:INCLUDEPATH += $$PWD/../../../usr/lib/x86_64-linux-gnu
+unix:DEPENDPATH += $$PWD/../../../usr/lib/x86_64-linux-gnu
