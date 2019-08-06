@@ -6,7 +6,7 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("C-Bits")
 
     background: Rectangle {
     color: "white"
@@ -46,7 +46,7 @@ ApplicationWindow {
     title: "Select an image file"
     folder: shortcuts.documents
     nameFilters: [
-    "Image files (*.*)",
+    "Image files (*.jpg *.png *.tif)", "All files (*)"
     ]
     onAccepted: {
     image.source = fileOpenDialog.fileUrl
@@ -58,7 +58,7 @@ ApplicationWindow {
     title: qsTr("About")
     Label {
     anchors.fill: parent
-    text: qsTr("QT Viewer")
+    text: qsTr("C-Bits Viewer \n A cross platform viewer for WSI images")
     horizontalAlignment: Text.AlignHCenter
     }
     standardButtons: StandardButton.Ok
