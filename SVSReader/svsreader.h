@@ -7,9 +7,9 @@
 #include "tiffio.h"
 #include <QImage>
 
-#define	AIC_MAXLAYERS 100
-#define	AIC_MAXLEVELS 10
-#define	AIC_MAXFILES (AIC_MAXLAYERS * AIC_MAXLEVELS)
+#define	MAXLAYERS 100
+#define	MAXLEVELS 10
+#define	MAXFILES (MAXLAYERS * MAXLEVELS)
 #define	maxThumbWidth 2048		// max thumbnail dimensions
 #define	maxThumbHeight 1536
 
@@ -20,6 +20,7 @@ public:
     SVSReader();
 
     QImage Open(std::string filePath);
+    void closeSVSReader();
 
 private:
     std::string m_FilePath;
@@ -28,23 +29,14 @@ private:
     long m_ThumbHeight;
     double	m_ThumbZoom;
 
-    struct	{			// file table entry
-        long	width,		// file image dimensions
+    struct
+    {
+        long	width,
         height;
-        long	xOff,		// positional offsets in global grid
-        yOff;
-        int		tileWidth,	// file tile dimensions
-        tileHeight,
-        rowsPerStrip;	// 0=tiled, >0=width,height canonical
-        int		xTiles,		// number of tiles in X, Y
-        yTiles;
-        double	zoom;		// zoom relative to base (4 = 25% level)
-        int		bitsPerSampl;	// sample bit depth
-        int		samplPerPix;	// number of pixel spectral components
     }
-    m_FileTable[AIC_MAXFILES];
+    m_FileTable[MAXFILES];
 
-    TIFF *m_TIFFArray[AIC_MAXFILES];
+    TIFF *m_TIFFArray[MAXFILES];
 
     int m_FileCount;
     int m_ThumbFileIndex;

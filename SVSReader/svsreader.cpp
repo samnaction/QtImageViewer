@@ -5,7 +5,19 @@ SVSReader::SVSReader(): m_FileCount(0)
 {
 }
 
+void SVSReader::closeSVSReader()
+{
 
+    while(m_FileCount)
+    {
+        --m_FileCount;
+        TIFFClose(m_TIFFArray[m_FileCount]);
+         m_TIFFArray[m_FileCount] = nullptr;
+
+    }
+
+    delete[] m_ThumbRawData;
+}
 
 QImage SVSReader::ConvertByteArrayToQImage()
 {
