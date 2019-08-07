@@ -27,6 +27,7 @@ ApplicationWindow {
     Column{
         id: slidetryId
         anchors.fill: parent
+        spacing: 10
         RowLayout
         {
             width: parent.width
@@ -52,29 +53,35 @@ ApplicationWindow {
                 Layout.fillWidth: true
             }
         }
+
         RowLayout
         {
+            spacing: 10
             width : parent.width
             height: parent.height
             ListView
             {
                 id:mainList
-                highlight: Rectangle { color: "green" ; radius: 2; border.color: "black"; border.width:10  }
+                highlight: Rectangle { width: parent.width; color: "dodgerblue" ; radius: 4; border.color: "yellowgreen" ; z:3; opacity:0.1  }
                 Layout.fillHeight: true
-                Layout.alignment: Qt.AlignLeft
+                Layout.alignment: Qt.AlignCenter
                 focus: true
                 width: 460
+                spacing:10
                 model: Wrapper.slideList
                 onCurrentIndexChanged: {
                     imagepath = "image://colors/" + model[mainList.currentIndex].filePath
                 }
+
+
 
                 delegate: Rectangle{
 
                     height: 65
                     radius: 4
                     width: parent.width
-                    color: "dodgerblue"
+                    border.color: "yellowgreen"
+                    color: "beige"
 
                     MouseArea{
                         anchors.fill: parent
@@ -83,7 +90,7 @@ ApplicationWindow {
                         }
                     }
 
-                    Row{
+                    RowLayout{
                         anchors.fill: parent
                         Rectangle{
                             id: rectID
@@ -119,15 +126,18 @@ ApplicationWindow {
                 }
             }
 
-            Image
+            Rectangle
             {
-                id: viewPaneId
+                id:viewpaneRectId
                 Layout.fillHeight: true
-                Layout.alignment: Qt.AlignLeft
                 Layout.fillWidth: true
-                fillMode: Image.PreserveAspectFit
-                cache: false
-                source: imagepath
+                Image
+                {
+                    id: viewPaneId
+                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
+                    source: imagepath
+                }
             }
         }
     }
