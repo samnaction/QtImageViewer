@@ -27,12 +27,9 @@ ApplicationWindow {
     Column{
         id: slidetryId
         anchors.fill: parent
-        RowLayout
+        Row
         {
             width: parent.width
-            height: 90
-
-            spacing: 30
             Button{
                 Layout.fillWidth: false
                 text: qsTr("Open Image")
@@ -79,6 +76,7 @@ ApplicationWindow {
                                 id: thumbnailImage
                                 width: rectID.width
                                 height:rectID.height
+                                asynchronous: true
                                 source: "image://colors/" + modelData.filePath
                                 fillMode: Image.PreserveAspectFit
                             }
