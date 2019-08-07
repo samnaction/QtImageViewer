@@ -18,7 +18,7 @@ ApplicationWindow {
         title: "Select an image file"
         folder: shortcuts.documents
         selectMultiple: true
-        nameFilters: ["Image files (*.png *.jpeg *.jpg *.tif *.tiff)"]
+        nameFilters: ["Image files (*.png *.jpeg *.jpg *.tif *.tiff *.svs)"]
         onAccepted: {
             Wrapper.setSlides(fileOpenDialog.fileUrls)
         }
