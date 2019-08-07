@@ -164,10 +164,10 @@ ApplicationWindow {
                             color: "white"
                         }
                         RoundButton{
-                           contentItem: Text {
-                               text: qsTr("x")
-                               color: "white"
-                           }
+                            contentItem: Text {
+                                text: qsTr("x")
+                                color: "white"
+                            }
                             onClicked: {Wrapper.deleteSlide(index)
                             }
                         }
