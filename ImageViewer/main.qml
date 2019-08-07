@@ -64,6 +64,7 @@ ApplicationWindow {
                 onClicked: {
                     fileOpenDialog.open()
                 }
+                anchors.verticalCenter: parent.verticalCenter
             }
 
             Button
@@ -92,33 +93,48 @@ ApplicationWindow {
                     Wrapper.clearSlides()
                     imagepath=""
                 }
+                anchors.verticalCenter: parent.verticalCenter
             }
 
-                Layout.fillWidth: true
-                Text {
-                    id: brightness
-                    text: qsTr("brightness ")
-                    font.family: "Helvetica"; font.pointSize: 13;
-                    color: "white"
-                }
-                Slider {
-                    id: brightnessID
-                    to: 1.0
-                    anchors.top: parent.top
-                    value: 0.0
-                }
-                Text {
-                    id: contrast
-                    text: qsTr("contrast ")
-                    font.family: "Helvetica"; font.pointSize: 13;
-                    color: "white"
-                }
-                Slider {
-                    id: contrastID
-                    to: 1.0
-                    anchors.top: parent.top
-                    value: 0.0
-                }
+            Layout.fillWidth: true
+            Text {
+                id: brightness
+                text: qsTr("brightness ")
+                font.pointSize: 13;
+                color: "white"
+                anchors.right: brightnessID.left
+                anchors.rightMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            Slider {
+                id: brightnessID
+                from:-1.0
+                to: 1.0
+                anchors.top: parent.top
+                value: 0.0
+                anchors.right: contrast.left
+                anchors.rightMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            Text {
+                id: contrast
+                text: qsTr("contrast ")
+                font.pointSize: 13;
+                color: "white"
+                anchors.right: contrastID.left
+                anchors.rightMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            Slider {
+                id: contrastID
+                from:-1.0
+                to: 1.0
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.rightMargin: 30
+                value: 0.0
+                anchors.verticalCenter: parent.verticalCenter
+            }
 
             Item {
                 Layout.fillWidth: true
@@ -143,6 +159,7 @@ ApplicationWindow {
                 focus: true
                 width: 460
                 spacing:10
+                clip: true
                 model: Wrapper.slideList
                 onCurrentIndexChanged: {
                     imagepath = "image://colors/" + model[mainList.currentIndex].filePath
