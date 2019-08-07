@@ -5,8 +5,6 @@ import QtQuick.Layouts 1.12
 
 ApplicationWindow {
     visible: true
-    width: 640
-    height: 480
     title: qsTr("C-Bits")
 
     FileDialog
@@ -70,11 +68,7 @@ ApplicationWindow {
                         anchors.fill: parent
                         onClicked:
                         {
-                            //console.log(mainList.model[ mainList.currentIndex])
-                            mainList.currentItem.focus= true
-
-                            viewPaneId.source = "image://colors/" + mainList.model[ mainList.currentIndex].filePath
-
+                            Wrapper.setSelected(index)
                         }
                     }
 
@@ -117,6 +111,7 @@ ApplicationWindow {
             Image
             {
                 id: viewPaneId
+                source : "image://colors/" + Wrapper.selectedSlide
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft
                 Layout.fillWidth: true
