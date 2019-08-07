@@ -27,11 +27,13 @@ ApplicationWindow {
     Column{
         id: slidetryId
         anchors.fill: parent
-        Row
+        RowLayout
         {
             width: parent.width
             Button{
                 Layout.fillWidth: false
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignLeft
                 text: qsTr("Open Image")
                 onClicked: {
                     fileOpenDialog.open()
@@ -40,31 +42,33 @@ ApplicationWindow {
 
             Button{
                 Layout.fillWidth: false
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignLeft
                 text: qsTr("Close All")
                 onClicked: {Wrapper.clearSlides()
                 }
             }
+            Item {
+                Layout.fillWidth: true
+            }
         }
-
-        Rectangle
+        RowLayout
         {
             width : parent.width
             height: parent.height
             ListView
             {
                 id:mainList
-                anchors.fill: parent
-                clip: true
-                spacing: 5
+                highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignLeft
+                width: 200
                 model: Wrapper.slideList
-
                 delegate: Rectangle{
                     height: 90
                     radius: 10
-                    border.color: "black"
                     width: parent.width
-
-                    RowLayout{
+                    ColumnLayout{
                         anchors.fill: parent
                         Rectangle{
                             id: rectID
@@ -81,22 +85,33 @@ ApplicationWindow {
                                 fillMode: Image.PreserveAspectFit
                             }
                         }
+                        RowLayout{
 
-                        Text {
-                            id: slideName
-                            text: modelData.slideName
-                        }
-                        Text {
-                            id: modifiedDate
-                            text: modelData.modifiedDate
-                        }
-                        Button{
-                            text: qsTr("Close Image")
-                            onClicked: {Wrapper.deleteSlide(index)
+                            Text {
+                                id: slideName
+                                text: modelData.slideName
+                            }
+                            Text {
+                                id: modifiedDate
+                                text: modelData.modifiedDate
+                            }
+                            RoundButton{
+                                text: qsTr("X")
+                                onClicked: {Wrapper.deleteSlide(index)
+                                }
                             }
                         }
                     }
                 }
+            }
+            Image
+            {
+                id: image
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignLeft
+                Layout.fillWidth: true
+                fillMode: Image.PreserveAspectFit
+                source: "qrc:/qtquickplugin/images/template_image.png"
             }
         }
     }
