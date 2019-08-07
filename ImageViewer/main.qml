@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.12
 ApplicationWindow {
     id:rootId
     visible: true
+    visibility: "Maximized"
     width: 640
     height: 480
     title: qsTr("C-Bits")
@@ -46,7 +47,9 @@ ApplicationWindow {
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft
                 text: qsTr("Close All")
-                onClicked: {Wrapper.clearSlides()
+                onClicked: {
+                    Wrapper.clearSlides()
+                    imagepath=""
                 }
             }
             Item {
