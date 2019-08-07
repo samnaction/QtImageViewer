@@ -122,8 +122,7 @@ ApplicationWindow {
 
                 delegate: Rectangle{
 
-                    height: 65
-                    radius: 4
+                    height: 90
                     width: parent.width
                     border.color: "black"
                     color: "#FF24292E"
@@ -136,11 +135,14 @@ ApplicationWindow {
                     }
 
                     RowLayout{
-                        anchors.fill: parent
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.left: parent.left
+                        anchors.leftMargin: 10
                         Rectangle{
                             id: rectID
-                            height:60
-                            width:60
+                            height:70
+                            width:140
                             Image
                             {
                                 id: thumbnailImage
@@ -154,8 +156,11 @@ ApplicationWindow {
 
                         Text {
                             id: slideName
+                            width:2
                             text: modelData.slideName
                             color: "white"
+                            wrapMode: Text.Wrap
+
                         }
 
                         Text {
@@ -164,11 +169,20 @@ ApplicationWindow {
                             color: "white"
                         }
                         RoundButton{
+                            id: slideCloseId
+                            text: qsTr("x")
+                            font.family: "Arial"
+                            font.weight: Font.Bold
                             contentItem: Text {
-                                text: qsTr("x")
-                                color: "white"
+                                text: slideCloseId.text
+                                font: slideCloseId.font
+                                color: slideCloseId.hovered ? "red" : "white"
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
                             }
-                            onClicked: {Wrapper.deleteSlide(index)
+                            onClicked: {
+                                Wrapper.deleteSlide(index)
                             }
                         }
 
