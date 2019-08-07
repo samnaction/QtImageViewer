@@ -11,21 +11,19 @@ class Slide : public QObject
     Q_OBJECT
     Q_PROPERTY(QString slideName READ slideName WRITE setSlideName NOTIFY slideNameChanged)
     Q_PROPERTY(QString modifiedDate READ modifiedDate WRITE setModifiedDate NOTIFY modifiedDateChanged)
-    Q_PROPERTY(QImage thumbnailImage READ thumbnailImage WRITE setThumbnailImage NOTIFY modifiedThumbnailImage)
+    Q_PROPERTY(QString filePath READ filePath WRITE setfilePath)
 public:
-    explicit Slide(QString _slideName = "", QString _modifiedDate="");
+    explicit Slide(QString _slideName = "", QString _filePath = "", QString _modifiedDate="");
     QString m_slideName;
     QString m_modifiedDate;
-    QImage  m_thumbnailImage;
-    ImageProvider ip;
+    QString  m_filePath;
     QString slideName() const;
     void setSlideName(QString name);
     QString modifiedDate() const;
     void setModifiedDate(QString date);
 
-    QImage thumbnailImage() const;
-    void setThumbnailImage(QImage image);
-    void getThumbnail();
+    QString filePath() const;
+    void setfilePath(QString image);
 
 private:
 
@@ -34,9 +32,6 @@ signals:
     void slideNameChanged(QString names);
 
     void modifiedDateChanged(QString favoriteColor);
-
-    void modifiedThumbnailImage(QImage image);
-
 };
 
 #endif // SLIDE_H

@@ -9,14 +9,15 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include  <QQuickView>
 
-class MainView : public QObject
+class MainView : public QQuickView
 {
     Q_OBJECT
     Q_PROPERTY(QList<QObject*> slideList READ slideList WRITE addSlides NOTIFY slidesChanged)
 
 public:
-    explicit MainView(QObject *parent = nullptr);
+    explicit MainView(QQuickView *parent = nullptr);
     bool initialize();
     Q_INVOKABLE QList<QObject *> slides() const;
     Q_INVOKABLE void setSlides(QList<QUrl> fileNames);

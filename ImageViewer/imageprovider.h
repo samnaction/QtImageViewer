@@ -4,24 +4,11 @@
 #include <QImage>
 #include <QQuickImageProvider>
 
-class ImageProvider : public QObject, public QQuickImageProvider
+class ImageProvider : public QQuickImageProvider
 {
-    Q_OBJECT
 public:
     ImageProvider();
-
-    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
-
-public slots:
-    void updateImage(const QImage image);
-signals:
-    void imageChanged();
-
-private:
-    QImage image;
-        QImage no_image;
-
-
+    QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) override;
 };
 
 #endif // IMAGEPROVIDER_H

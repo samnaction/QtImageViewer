@@ -9,7 +9,7 @@
 #include <QDateTime>
 #include <imageprovider.h>
 
-MainView::MainView(QObject *parent): QObject(parent)
+MainView::MainView(QQuickView *parent): QQuickView(parent)
 {
 
 }
@@ -30,11 +30,13 @@ bool MainView::initialize()
 void MainView::resetModel()
 {
 
-//    QScopedPointer<ImageProvider> liveImageProvider(new ImageProvider());
-//    mEngine.rootContext()->setContextProperty("liveImageProvider", liveImageProvider.data());
-//    mEngine.addImageProvider("live", liveImageProvider.data());
+
+
+    mEngine.addImageProvider(QLatin1String("colors"), new ImageProvider());
 
     mEngine.rootContext()->setContextProperty("Wrapper",this);
+
+     this->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
 
 //    QObject::connect(&mSlides, &Slide::modifiedThumbnailImage, liveImageProvider, &ImageProvider::updateImage);
 
@@ -69,8 +71,7 @@ void MainView::setSlides(QList<QUrl> fileNames)
         QString base = fi.baseName();
         QDateTime created = fi.lastModified();
 
-        Slide *s= new Slide(qStrFilePath.toString(), created.toString("dd-MM-yyyy"));
-        s->m_thumbnailImage = image;
+        Slide *s= new Slide(base, fi.filePath(), created.toString("dd-MM-yyyy"));
         mSlides.append(s);
         addSlides(mSlides);
         emit slidesChanged(mSlides);

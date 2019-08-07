@@ -42,11 +42,6 @@ ApplicationWindow {
             }
 
             Button{
-                text: qsTr("Save Image")
-                Layout.fillWidth: false
-            }
-
-            Button{
                 Layout.fillWidth: false
                 text: qsTr("Close All")
                 onClicked: {Wrapper.clearSlides()
@@ -58,7 +53,6 @@ ApplicationWindow {
         {
             width : parent.width
             height: parent.height
-            color: "greenyellow"
             ListView
             {
                 id:mainList
@@ -70,24 +64,22 @@ ApplicationWindow {
                 delegate: Rectangle{
                     height: 90
                     radius: 10
-                    color : "gray"// Can also do modelData.favoriteColor directly but adding model makes it clear where the data is coming from. More readable
-                    border.color: "cyan"
+                    border.color: "black"
                     width: parent.width
 
                     RowLayout{
                         anchors.fill: parent
-                        anchors.margins: 20
-
                         Rectangle{
                             id: rectID
-                            height:80
-                            width:80
+                            height:60
+                            width:60
+
                             Image
                             {
                                 id: thumbnailImage
-                                source: modelData.slideName
                                 width: rectID.width
                                 height:rectID.height
+                                source: "image://colors/" + modelData.filePath
                                 fillMode: Image.PreserveAspectFit
                             }
                         }
@@ -95,12 +87,10 @@ ApplicationWindow {
                         Text {
                             id: slideName
                             text: modelData.slideName
-                            Layout.fillWidth: true
                         }
                         Text {
                             id: modifiedDate
                             text: modelData.modifiedDate
-                            Layout.fillWidth: true
                         }
                         Button{
                             text: qsTr("Close Image")

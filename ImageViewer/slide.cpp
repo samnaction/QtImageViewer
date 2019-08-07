@@ -2,9 +2,10 @@
 #include<viewspace.h>
 #include <QImageReader>
 
-Slide ::Slide(QString _slideName,QString _modifiedDate)
+Slide ::Slide(QString _slideName, QString _filePath,QString _modifiedDate)
 {
     m_slideName = _slideName;
+    m_filePath = _filePath;
     m_modifiedDate = _modifiedDate;
 }
 
@@ -30,21 +31,15 @@ void Slide::setModifiedDate(QString date)
     emit modifiedDateChanged(m_modifiedDate);
 }
 
-QImage Slide::thumbnailImage() const
+QString Slide::filePath() const
 {
-    return m_thumbnailImage;
+    return m_filePath;
 }
 
-void Slide::setThumbnailImage(QImage image)
+void Slide::setfilePath(QString filePath)
 {
-    m_thumbnailImage = image;
-    ip.updateImage(m_thumbnailImage);
-    emit modifiedThumbnailImage(m_thumbnailImage);
+    m_filePath = filePath;
 }
 
-void Slide::getThumbnail()
- {
-
- }
 
 

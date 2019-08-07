@@ -2,54 +2,23 @@
 /**
 * @brief Image provider that is used to handle the live image stream in the QML viewer.
  */
-ImageProvider::ImageProvider() : QQuickImageProvider(QQuickImageProvider::Image)
+ImageProvider::ImageProvider() : QQuickImageProvider(QQuickImageProvider::Pixmap)
 {
-    this->no_image = QImage("D:/Koli.jpg");
-        this->blockSignals(false);
 
 }
 
-/**
- * @brief Delivers image. The id is not used.
- * @param id The id is the requested image source, with the "image:" scheme and provider identifier removed.
- * For example, if the image source was "image://myprovider/icons/home", the given id would be "icons/home".
- * @param size In all cases, size must be set to the original size of the image. This is used to set the
- * width and height of the relevant Image if these values have not been set explicitly.
- * @param requestedSize The requestedSize corresponds to the Image::sourceSize requested by an Image item.
- * If requestedSize is a valid size, the image returned should be of that size.
- * @return
- */
-QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
-{
+QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
+   {
+//      int width = 60;
+//      int height = 50;
 
-    QImage result = this->image;
+//      if (size)
+//         *size = QSize(width, height);
+//      QPixmap pixmap(requestedSize.width() > 0 ? requestedSize.width() : width,
+//                     requestedSize.height() > 0 ? requestedSize.height() : height);
+//      pixmap.fill(QColor(id).rgba());
 
-        if(result.isNull()) {
-            result = this->no_image;
-        }
+      QPixmap pixmap(id);
+      return pixmap;
+   }
 
-        if(size) {
-            *size = result.size();
-        }
-
-        if(requestedSize.width() > 0 && requestedSize.height() > 0) {
-            result = result.scaled(requestedSize.width(), requestedSize.height(), Qt::KeepAspectRatio);
-        }
-
-        return result;
-
-}
-
-/**
- * @brief Update of the current image.
- * @param image The new image.
- */
-void ImageProvider::updateImage(const QImage image)
-{
-    if(this->image != image) {
-            this->image = image;
-            emit imageChanged();
-        }
-
-
-}
