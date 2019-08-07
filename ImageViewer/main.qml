@@ -241,20 +241,63 @@ ApplicationWindow {
                 color: "#FF24292E"
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+
+                width: viewPaneId.width * (1 + 0.10 * viewPaneId.height / viewPaneId.width)
+                height: viewPaneId.height * 1.10
+                scale: defaultSize / Math.max(viewPaneId.sourceSize.width, viewPaneId.sourceSize.height)
+                Behavior on scale { NumberAnimation { duration: 200 } }
+                Behavior on x { NumberAnimation { duration: 200 } }
+                Behavior on y { NumberAnimation { duration: 200 } }
+                smooth: true
+                antialiasing: true
+                Component.onCompleted: {
+                    x = Math.random() * root.width - width / 2
+                    y = Math.random() * root.height - height / 2
+                    rotation = Math.random() * 13 - 6
+                }
                 Image
                 {
                     id: viewPaneId
                     anchors.centerIn: parent
+
                     fillMode: Image.PreserveAspectFit
                     source: imagepath
+                    focus: true
                     BrightnessContrast {
                         anchors.fill: viewPaneId
                         source: viewPaneId
                         contrast: contrastID.value
                         brightness: brightnessID.value
                     }
+
+                }
+                MouseArea {
+                    id: dragArea
+                    hoverEnabled: true
+                    anchors.fill: parent
+                    drag.target: viewpaneRectId
+                    scrollGestureEnabled: false  // 2-finger-flick gesture should pass through to the Flickable
+                    onPressed: {
+                        viewpaneRectId.z = ++root.highestZ;
+                        parent.setFrameColor();
+                    }
+                    onEntered: parent.setFrameColor();
+                    onWheel: {
+                        if (wheel.modifiers & Qt.ControlModifier) {
+                            viewpaneRectId.rotation += wheel.angleDelta.y / 120 * 5;
+                            if (Math.abs(viewpaneRectId.rotation) < 4)
+                                viewpaneRectId.rotation = 0;
+                        } else {
+                            viewpaneRectId.rotation += wheel.angleDelta.x / 120;
+                            if (Math.abs(viewpaneRectId.rotation) < 0.6)
+                                viewpaneRectId.rotation = 0;
+                            var scaleBefore = viewpaneRectId.scale;
+                            viewpaneRectId.scale += viewpaneRectId.scale * wheel.angleDelta.y / 120 / 10;
+                        }
+                    }
                 }
             }
+
         }
     }
 }
