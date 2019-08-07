@@ -153,7 +153,9 @@ ApplicationWindow {
             ListView
             {
                 id:mainList
-                highlight: Rectangle { width: parent.width; color: "#FF444D56" ; radius: 4; border.color: "black" ; z:3; opacity:0.4  }
+                highlightMoveDuration: 200
+                highlightMoveVelocity: 1000
+                highlight: Rectangle { width: parent.width; color: "#FF444D56" ; radius: 4; border.color: "black" ; z:3; opacity:0.4 }
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignCenter
                 focus: true
