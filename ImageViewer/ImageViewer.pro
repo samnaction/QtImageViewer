@@ -1,7 +1,7 @@
 QT += quick quickcontrols2 core widgets gui
 QT += qml
 CONFIG += c++11
-QMAKE_LINK += -nostdlib++
+unix:android: QMAKE_LINK += -nostdlib++
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -33,6 +33,62 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+
+unix
+{
+    target.path = /usr/lib
+    INSTALLS += target
+    debug
+    {
+        DESTDIR = $$PWD/../BUILD/debug
+    }
+    release
+    {
+        DESTDIR = $$PWD/../BUILD/release
+    }
+}
+
+win32
+{
+    debug
+    {
+        DESTDIR = $$PWD/../BUILD/debug
+    }
+    release
+    {
+        DESTDIR = $$PWD/../BUILD/release
+    }
+}
+
+win32: LIBS += -L$$PWD/../TIFF/Libs/ -ltiff
+
+INCLUDEPATH += $$PWD/../TIFF/Include
+DEPENDPATH += $$PWD/../TIFF/Include
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../BUILD/release/ -lSVSReader
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BUILD/debug/ -lSVSReader
+
+INCLUDEPATH += $$PWD/../SVSReader
+DEPENDPATH += $$PWD/../SVSReader
+
+unix
+{
+    debug
+    {
+        unix:!macx: LIBS += -L$$PWD/../BUILD/debug/ -lSVSReader
+        INCLUDEPATH += $$PWD/../BUILD/debug
+        DEPENDPATH += $$PWD/../BUILD/debug
+    }
+
+    release
+    {
+        unix:!macx: LIBS += -L$$PWD/../BUILD/release/ -lSVSReader
+        INCLUDEPATH += $$PWD/../BUILD/release
+        DEPENDPATH += $$PWD/../BUILD/release
+    }
+}
+
 
 HEADERS += \
     imageprovider.h \
