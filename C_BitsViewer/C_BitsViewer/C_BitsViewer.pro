@@ -38,12 +38,24 @@ FORMS += \
 
 
 
-win32: LIBS += -L$$PWD/../../build-SVSReader-Desktop_Qt_5_13_0_MSVC2017_64bit-Debug/debug/ -lSVSReader
+win32{
+debug{
+    DESTDIR = $$PWD/../../BUILD/debug
+}
+release
+{
+    DESTDIR = $$PWD/../../BUILD/release
+}
+}
 
-INCLUDEPATH += $$PWD/../../SVSReader
-DEPENDPATH += $$PWD/../../SVSReader
 
 win32: LIBS += -L$$PWD/../../TIFF/Libs/ -ltiff
 
 INCLUDEPATH += $$PWD/../../TIFF/Include
 DEPENDPATH += $$PWD/../../TIFF/Include
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../BUILD/release/ -lSVSReader
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../BUILD/debug/ -lSVSReader
+
+INCLUDEPATH += $$PWD/../../SVSReader
+DEPENDPATH += $$PWD/../../SVSReader

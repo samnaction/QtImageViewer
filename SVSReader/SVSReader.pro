@@ -32,6 +32,16 @@ unix {
     INSTALLS += target
 }
 
+win32{
+debug{
+    DESTDIR = $$PWD/../BUILD/debug
+}
+release
+{
+    DESTDIR = $$PWD/../BUILD/release
+}
+}
+
 win32: LIBS += -L$$PWD/../TIFF/Libs/ -ltiff
 else:unix: LIBS += -L$$PWD/../../../usr/lib/x86_64-linux-gnu/ -ltiff
 
