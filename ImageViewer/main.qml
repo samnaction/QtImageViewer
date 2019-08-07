@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.12
+import QtGraphicalEffects 1.12
 
 ApplicationWindow {
     id:rootId
@@ -92,6 +93,33 @@ ApplicationWindow {
                     imagepath=""
                 }
             }
+
+                Layout.fillWidth: true
+                Text {
+                    id: brightness
+                    text: qsTr("brightness ")
+                    font.family: "Helvetica"; font.pointSize: 13;
+                    color: "white"
+                }
+                Slider {
+                    id: brightnessID
+                    to: 1.0
+                    anchors.top: parent.top
+                    value: 0.0
+                }
+                Text {
+                    id: contrast
+                    text: qsTr("contrast ")
+                    font.family: "Helvetica"; font.pointSize: 13;
+                    color: "white"
+                }
+                Slider {
+                    id: contrastID
+                    to: 1.0
+                    anchors.top: parent.top
+                    value: 0.0
+                }
+
             Item {
                 Layout.fillWidth: true
             }
@@ -202,6 +230,12 @@ ApplicationWindow {
                     anchors.centerIn: parent
                     fillMode: Image.PreserveAspectFit
                     source: imagepath
+                    BrightnessContrast {
+                        anchors.fill: viewPaneId
+                        source: viewPaneId
+                        contrast: contrastID.value
+                        brightness: brightnessID.value
+                    }
                 }
             }
         }
