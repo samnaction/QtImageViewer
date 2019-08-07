@@ -65,6 +65,19 @@ ApplicationWindow {
                     height: 90
                     radius: 10
                     width: parent.width
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:
+                        {
+                            //console.log(mainList.model[ mainList.currentIndex])
+                            mainList.currentItem.focus= true
+
+                            viewPaneId.source = "image://colors/" + mainList.model[ mainList.currentIndex].filePath
+
+                        }
+                    }
+
                     ColumnLayout{
                         anchors.fill: parent
                         Rectangle{
@@ -103,12 +116,12 @@ ApplicationWindow {
             }
             Image
             {
-                id: image
+                id: viewPaneId
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft
                 Layout.fillWidth: true
                 fillMode: Image.PreserveAspectFit
-                source: "qrc:/qtquickplugin/images/template_image.png"
+                cache: false
             }
         }
     }
