@@ -1,5 +1,4 @@
-QT += quick core widgets gui
-QT += quickcontrols2
+QT += quick quickcontrols2 core widgets gui
 QT += qml
 CONFIG += c++11
 QMAKE_LINK += -nostdlib++
