@@ -10,6 +10,7 @@ ApplicationWindow {
     width: 640
     height: 480
     title: qsTr("C-Bits")
+    color: "#FF24292E"
 
     property string  imagepath: ""
 
@@ -31,22 +32,61 @@ ApplicationWindow {
         spacing: 10
         RowLayout
         {
+            id:buttonLayoutId
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.topMargin: 10
+            anchors.leftMargin: 10
             width: parent.width
-            Button{
-                Layout.fillWidth: false
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignLeft
+            Button
+            {
+                id:openImageId
                 text: qsTr("Open Image")
+                contentItem: Text
+                {
+                    text: openImageId.text
+                    font: openImageId.font
+                    color: openImageId.hovered ? "green" : "white"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+                background: Rectangle
+                {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    border.color: "black"
+                    color: openImageId.hovered ?   "#FF24292E" : "#FF2F363D"
+                    border.width: 1
+                    radius: 2
+                }
                 onClicked: {
                     fileOpenDialog.open()
                 }
             }
 
-            Button{
-                Layout.fillWidth: false
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignLeft
+            Button
+            {
+                id:closeAllId
                 text: qsTr("Close All")
+                contentItem: Text
+                {
+                    text: closeAllId.text
+                    font: closeAllId.font
+                    color: closeAllId.hovered ? "red" : "white"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+                background: Rectangle
+                {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    border.color: "black"
+                    color: closeAllId.hovered ? "#FF24292E" : "#FF2F363D"
+                    border.width: 1
+                    radius: 2
+                }
                 onClicked: {
                     Wrapper.clearSlides()
                     imagepath=""
@@ -59,13 +99,17 @@ ApplicationWindow {
 
         RowLayout
         {
+            anchors.left: parent.left
+            anchors.top: buttonLayoutId.bottom
+            anchors.topMargin: 10
+            anchors.leftMargin: 10
             spacing: 10
             width : parent.width
             height: parent.height
             ListView
             {
                 id:mainList
-                highlight: Rectangle { width: parent.width; color: "dodgerblue" ; radius: 4; border.color: "yellowgreen" ; z:3; opacity:0.1  }
+                highlight: Rectangle { width: parent.width; color: "#FF444D56" ; radius: 4; border.color: "black" ; z:3; opacity:0.4  }
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignCenter
                 focus: true
@@ -76,15 +120,13 @@ ApplicationWindow {
                     imagepath = "image://colors/" + model[mainList.currentIndex].filePath
                 }
 
-
-
                 delegate: Rectangle{
 
                     height: 65
                     radius: 4
                     width: parent.width
-                    border.color: "yellowgreen"
-                    color: "beige"
+                    border.color: "black"
+                    color: "#FF24292E"
 
                     MouseArea{
                         anchors.fill: parent
@@ -99,7 +141,6 @@ ApplicationWindow {
                             id: rectID
                             height:60
                             width:60
-
                             Image
                             {
                                 id: thumbnailImage
@@ -111,19 +152,25 @@ ApplicationWindow {
                             }
                         }
 
-                            Text {
-                                id: slideName
-                                text: modelData.slideName
+                        Text {
+                            id: slideName
+                            text: modelData.slideName
+                            color: "white"
+                        }
+
+                        Text {
+                            id: modifiedDate
+                            text: modelData.modifiedDate
+                            color: "white"
+                        }
+                        RoundButton{
+                           contentItem: Text {
+                               text: qsTr("x")
+                               color: "white"
+                           }
+                            onClicked: {Wrapper.deleteSlide(index)
                             }
-                            Text {
-                                id: modifiedDate
-                                text: modelData.modifiedDate
-                            }
-                            RoundButton{
-                                text: qsTr("X")
-                                onClicked: {Wrapper.deleteSlide(index)
-                                }
-                            }
+                        }
 
                     }
                 }
@@ -132,6 +179,7 @@ ApplicationWindow {
             Rectangle
             {
                 id:viewpaneRectId
+                color: "#FF24292E"
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Image
