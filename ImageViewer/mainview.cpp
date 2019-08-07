@@ -36,7 +36,7 @@ void MainView::resetModel()
 
     mEngine.rootContext()->setContextProperty("Wrapper",this);
 
-     this->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
+     //this->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
 
 //    QObject::connect(&mSlides, &Slide::modifiedThumbnailImage, liveImageProvider, &ImageProvider::updateImage);
 
