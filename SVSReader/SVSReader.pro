@@ -27,19 +27,31 @@ HEADERS += \
         svsreader.h \
         svsreader_global.h 
 
-unix {
+unix
+{
     target.path = /usr/lib
     INSTALLS += target
+
+    debug
+    {
+        DESTDIR = $$PWD/../BUILD/debug
+    }
+    release
+    {
+        DESTDIR = $$PWD/../BUILD/release
+    }
 }
 
-win32{
-debug{
-    DESTDIR = $$PWD/../BUILD/debug
-}
-release
+win32
 {
-    DESTDIR = $$PWD/../BUILD/release
-}
+    debug
+    {
+        DESTDIR = $$PWD/../BUILD/debug
+    }
+    release
+    {
+        DESTDIR = $$PWD/../BUILD/release
+    }
 }
 
 win32: LIBS += -L$$PWD/../TIFF/Libs/ -ltiff

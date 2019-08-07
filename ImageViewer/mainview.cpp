@@ -8,6 +8,7 @@
 #include <QFileInfo>
 #include <QDateTime>
 #include <imageprovider.h>
+#include <QQuickStyle>
 
 MainView::MainView(QQuickView *parent): QQuickView(parent)
 {
@@ -19,7 +20,7 @@ bool MainView::initialize()
 
     resetModel();
 
-
+    QQuickStyle::setStyle("Universal");
     mEngine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (mEngine.rootObjects().isEmpty())
         return false;
@@ -36,7 +37,7 @@ void MainView::resetModel()
 
     mEngine.rootContext()->setContextProperty("Wrapper",this);
 
-     this->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
+     //this->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
 
 //    QObject::connect(&mSlides, &Slide::modifiedThumbnailImage, liveImageProvider, &ImageProvider::updateImage);
 

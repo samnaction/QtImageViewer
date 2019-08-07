@@ -1,5 +1,4 @@
-QT += quick core widgets gui
-QT += quickcontrols2
+QT += quick quickcontrols2 core widgets gui
 QT += qml
 CONFIG += c++11
 unix:android: QMAKE_LINK += -nostdlib++
@@ -36,19 +35,30 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 
-unix {
+unix
+{
     target.path = /usr/lib
     INSTALLS += target
+    debug
+    {
+        DESTDIR = $$PWD/../BUILD/debug
+    }
+    release
+    {
+        DESTDIR = $$PWD/../BUILD/release
+    }
 }
 
-win32{
-debug{
-    DESTDIR = $$PWD/../BUILD/debug
-}
-release
+win32
 {
-    DESTDIR = $$PWD/../BUILD/release
-}
+    debug
+    {
+        DESTDIR = $$PWD/../BUILD/debug
+    }
+    release
+    {
+        DESTDIR = $$PWD/../BUILD/release
+    }
 }
 
 win32: LIBS += -L$$PWD/../TIFF/Libs/ -ltiff
@@ -62,6 +72,22 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../BUILD/debug/ -lSVSRe
 INCLUDEPATH += $$PWD/../SVSReader
 DEPENDPATH += $$PWD/../SVSReader
 
+unix
+{
+    debug
+    {
+        unix:!macx: LIBS += -L$$PWD/../BUILD/debug/ -lSVSReader
+        INCLUDEPATH += $$PWD/../BUILD/debug
+        DEPENDPATH += $$PWD/../BUILD/debug
+    }
+
+    release
+    {
+        unix:!macx: LIBS += -L$$PWD/../BUILD/release/ -lSVSReader
+        INCLUDEPATH += $$PWD/../BUILD/release
+        DEPENDPATH += $$PWD/../BUILD/release
+    }
+}
 
 
 HEADERS += \

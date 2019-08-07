@@ -1,4 +1,4 @@
-#include "ImageProvider.h"
+#include "imageprovider.h"
 #include "svsreader.h"
 #include<QFileInfo>
 /**
