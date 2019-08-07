@@ -4,10 +4,13 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.12
 
 ApplicationWindow {
+    id:rootId
     visible: true
     width: 640
     height: 480
     title: qsTr("C-Bits")
+
+    property string  imagepath: ""
 
     FileDialog
     {
@@ -56,29 +59,31 @@ ApplicationWindow {
             ListView
             {
                 id:mainList
-                highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+                highlight: Rectangle { color: "green" ; radius: 2; border.color: "black"; border.width:10  }
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft
-                width: 200
+                focus: true
+                width: 460
                 model: Wrapper.slideList
+                onCurrentIndexChanged: {
+                    imagepath = "image://colors/" + model[mainList.currentIndex].filePath
+                }
+
                 delegate: Rectangle{
-                    height: 90
-                    radius: 10
+
+                    height: 65
+                    radius: 4
                     width: parent.width
-                    MouseArea
-                    {
+                    color: "dodgerblue"
+
+                    MouseArea{
                         anchors.fill: parent
-                        onClicked:
-                        {
-                            //console.log(mainList.model[ mainList.currentIndex])
-                            mainList.currentItem.focus= true
-
-                            viewPaneId.source = "image://colors/" + mainList.model[ mainList.currentIndex].filePath
-
+                        onClicked:{
+                            mainList.currentIndex = index
                         }
                     }
 
-                    ColumnLayout{
+                    Row{
                         anchors.fill: parent
                         Rectangle{
                             id: rectID
@@ -95,7 +100,6 @@ ApplicationWindow {
                                 fillMode: Image.PreserveAspectFit
                             }
                         }
-                        RowLayout{
 
                             Text {
                                 id: slideName
@@ -110,10 +114,11 @@ ApplicationWindow {
                                 onClicked: {Wrapper.deleteSlide(index)
                                 }
                             }
-                        }
+
                     }
                 }
             }
+
             Image
             {
                 id: viewPaneId
@@ -122,6 +127,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 fillMode: Image.PreserveAspectFit
                 cache: false
+                source: imagepath
             }
         }
     }
