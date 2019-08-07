@@ -8,6 +8,7 @@
 #include <QFileInfo>
 #include <QDateTime>
 #include <imageprovider.h>
+#include <QQuickStyle>
 
 MainView::MainView(QQuickView *parent): QQuickView(parent)
 {
@@ -19,7 +20,7 @@ bool MainView::initialize()
 
     resetModel();
 
-
+    QQuickStyle::setStyle("Universal");
     mEngine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (mEngine.rootObjects().isEmpty())
         return false;
