@@ -61,6 +61,20 @@ win32
     }
 }
 
+macx
+{
+debug{
+target.path = $$PWD/../BUILD/
+INSTALLS += target
+
+CONFIG += install_ok  # Do not cargo-cult this!
+
+# Deployment
+
+DESTDIR = $$PWD/../BUILD/debug
+}
+}
+
 win32: LIBS += -L$$PWD/../TIFF/Libs/ -ltiff
 
 INCLUDEPATH += $$PWD/../TIFF/Include
@@ -97,3 +111,15 @@ HEADERS += \
     viewspace.h
 
 FORMS +=
+
+macx
+{
+    debug
+    {
+        LIBS += -L$$PWD/../BUILD/debug/ -lSVSReader.1.0.0
+    }
+    release
+    {
+       LIBS += -L$$PWD/../BUILD/release/ -lSVSReader.1.0.0
+    }
+}

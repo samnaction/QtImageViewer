@@ -54,6 +54,30 @@ win32
     }
 }
 
+macx
+{
+    debug
+    {
+        target.path = $$PWD/../BUILD/
+        INSTALLS += target
+
+        CONFIG += install_ok
+
+        DESTDIR = $$PWD/../BUILD/debug
+    }
+
+    release
+    {
+        target.path = $$PWD/../BUILD/
+        INSTALLS += target
+
+        CONFIG += install_ok
+
+        DESTDIR = $$PWD/../BUILD/release
+    }
+}
+
+
 win32: LIBS += -L$$PWD/../TIFF/Libs/ -ltiff
 else:unix: LIBS += -L$$PWD/../../../usr/lib/x86_64-linux-gnu/ -ltiff
 
@@ -62,3 +86,10 @@ win32:DEPENDPATH += $$PWD/../TIFF/Include
 
 unix:INCLUDEPATH += $$PWD/../../../usr/lib/x86_64-linux-gnu
 unix:DEPENDPATH += $$PWD/../../../usr/lib/x86_64-linux-gnu
+
+macx: LIBS += -L$$PWD/../../../../../../usr/local/Cellar/libtiff/4.1.0/lib/ -ltiff
+
+INCLUDEPATH += $$PWD/../../../../../../usr/local/Cellar/libtiff/4.1.0/include
+DEPENDPATH += $$PWD/../../../../../../usr/local/Cellar/libtiff/4.1.0/include
+
+macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/Cellar/libtiff/4.1.0/lib/libtiff.a
